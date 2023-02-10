@@ -2,6 +2,7 @@ import Head from 'next/head'
 import React from 'react';
 import algoliasearch from 'algoliasearch/lite';
 import { ClearRefinements, Hits, InstantSearch, RefinementList, SearchBox, RangeInput, Snippet } from 'react-instantsearch-hooks-web';
+import CountUp from 'react-countup'
 
 const searchClient = algoliasearch('JBN0Y9WSDJ', '03a413cd7ba3c19ed00a356273bd1361');
 
@@ -33,7 +34,7 @@ const searchBoxListSyles = {
 }
 function Hit({ hit }) {
   return (
-    <div className="relative flex items-start mb-4">
+    <div className="relative flex items-start mb-4 rounded overflow-hidden shadow-lg p-8 border-stone-200 border-2">
       <div className="flex h-5 items-center">
         <input
           id={hit.case_id}
@@ -51,12 +52,18 @@ function Hit({ hit }) {
         <div className="grid grid-cols-12">
           <div className="col-span-6">
             <div className="p-2">
-              <div>ESG Score: {hit.pctRank}</div>
-              TODO: List more company details
+              <div className="text-5xl font-extrabold tracking-tight text-[#43b365] sm:text-[4rem] text-center mt-3 ">
+                <CountUp start={0} end={Math.round(hit.pctRank * 100)} suffix='%' />
+
+
+                </div>
+                <div className='text-center font-bold text-gray-500'>ESG Overall Score</div>
+
+
             </div>
           </div>
           <div className="col-span-6">
-            <div className="p-2" style={{ fontSize: 8, lineHeight: 1}}>
+            <div className="p-2" style={{ fontSize: 8, lineHeight: 1, maxHeight: 100, overflow: 'hidden'}}>
              hit json: {JSON.stringify(hit)}
 
             </div>
@@ -74,6 +81,7 @@ export default function Register() {
       <Head>
         <title>Search the ESG Ticker</title>
       </Head>
+      
       <InstantSearch searchClient={searchClient} indexName="companies_v0">
         <SearchBox classNames={searchBoxListSyles} placeholder='Company name or stock symbol' />
         {/* Refinement list: state, counties, statewideFlag, constructionType, year, standard */}
@@ -82,8 +90,8 @@ export default function Register() {
             <ClearRefinements className="group inline-flex ring-1 items-center justify-center rounded-full py-2 px-4 text-sm focus:outline-none bg-white text-slate-900 hover:bg-blue-50 active:bg-blue-200 active:text-slate-600 focus-visible:outline-white" />
             <h3 className='mt-3 font-semibold text-lg'>Country</h3>
             <RefinementList classNames={refinementListStyles} attribute="exchange" />
-            <h3 className='mt-3 font-semibold text-lg'>ESG Score</h3>
-            <RangeInput classNames={refinementListStyles} attribute='pctRank' />
+            {/* <h3 className='mt-3 font-semibold text-lg'>ESG Score</h3>
+            <RangeInput classNames={refinementListStyles} attribute='pctRank' /> */}
             <h3 className='mt-3 font-semibold text-lg'>Sector</h3>
             <RefinementList classNames={refinementListStyles} attribute='sector' />
             <h3 className='mt-3 font-semibold text-lg'>Industry</h3>
