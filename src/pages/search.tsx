@@ -11,7 +11,7 @@ const refinementListStyles = {
   list: 'list-none p-1',
   item: 'flex items-center',
   selectedItem: 'font-semibold',
-  label: '',
+  label: 'truncate',
   count: 'ml-3 text-sm text-slate-500',
   noResults: 'text-xs text-slate-500',
   searchableInput: 'form-input w-full',
@@ -50,26 +50,30 @@ function Hit({ hit }) {
           <div>{hit.name} <span className='text-gray-500 text-sm'>({hit.exchange} - {hit.ticker})</span></div>
         </label>
         <div className="grid grid-cols-12">
-          <div className="col-span-6">
+          <div className="col-span-9">
             <div className="p-2">
-              <div className="text-5xl font-extrabold tracking-tight text-[#43b365] sm:text-[4rem] text-center mt-3 ">
-                <CountUp start={0} end={Math.round(hit.pctRank * 100)} suffix='%' />
 
 
+                <div className="p-2" style={{ fontSize: 14, lineHeight: 1, maxHeight: 100, overflow: 'hidden' }}>
+                  {hit.description ? hit.description : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'}
                 </div>
-                <div className='text-center font-bold text-gray-500'>ESG Overall Score</div>
-
-
+                
+              
+              <button onClick={() => { alert(JSON.stringify(hit)) }} className="group inline-flex ring-1 items-center justify-center rounded-full px-4 text-sm focus:outline-none bg-white text-slate-900 hover:bg-blue-50 active:bg-blue-200 active:text-slate-600 focus-visible:outline-white my-4 disabled">
+                Read More
+              </button>
             </div>
           </div>
-          <div className="col-span-6">
-            <div className="p-2" style={{ fontSize: 8, lineHeight: 1, maxHeight: 100, overflow: 'hidden'}}>
-             hit json: {JSON.stringify(hit)}
+          <div className="col-span-3">
+            <div className="text-5xl font-extrabold tracking-tight text-[#43b365] sm:text-[4rem] text-center mt-3 ">
+              <CountUp start={0} end={Math.round(hit.pctRank * 100)} suffix='%' />
 
             </div>
+            <div className='text-center font-bold text-gray-500'>ESG Overall Score</div>
+
           </div>
+        </div>
       </div>
-    </div>
     </div>
   );
 }
@@ -81,14 +85,27 @@ export default function Register() {
       <Head>
         <title>Search the ESG Ticker</title>
       </Head>
-      
+
       <InstantSearch searchClient={searchClient} indexName="companies_v0">
         <SearchBox classNames={searchBoxListSyles} placeholder='Company name or stock symbol' />
         {/* Refinement list: state, counties, statewideFlag, constructionType, year, standard */}
-        <div className="grid grid-cols-7 gap-2 p-10">
+        <div className="grid grid-cols-7 gap-10 px-64">
           <div className="col-span-2">
-            <ClearRefinements className="group inline-flex ring-1 items-center justify-center rounded-full py-2 px-4 text-sm focus:outline-none bg-white text-slate-900 hover:bg-blue-50 active:bg-blue-200 active:text-slate-600 focus-visible:outline-white" />
+
+            <div className="grid grid-cols-2 gap-2 mt-10">
+
+              <div className="col-span-1">
+                <h3 className='mt-3 font-semibold text-2xl'>Filters</h3>
+              </div>
+
+              <div className="col-span-1">
+
+                <ClearRefinements className="group inline-flex items-center justify-center rounded-full mt-3 py-2 px-4 text-sm focus:outline-none bg-white text-slate-900 hover:text-blue-600 active:text-blue-600 active:text-slate-600 focus-visible:outline-white" />
+              </div>
+
+            </div>
             <h3 className='mt-3 font-semibold text-lg'>Country</h3>
+
             <RefinementList classNames={refinementListStyles} attribute="exchange" />
             {/* <h3 className='mt-3 font-semibold text-lg'>ESG Score</h3>
             <RangeInput classNames={refinementListStyles} attribute='pctRank' /> */}
