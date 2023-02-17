@@ -114,7 +114,7 @@ export default function Company(props) {
         <p className="text-gray-500">{props.description}</p>
       </div>
       <button
-        className="my-10 h-7 w-full rounded-2xl bg-fuchsia-600 text-sm text-white"
+        className="m-auto my-10 block w-full items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
         onClick={() =>
           queryAi(
             `Write a paragraph with details about the ESG commitments of the company ${props.name} with ticker symbol ${company} in the style of 

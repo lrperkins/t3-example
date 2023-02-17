@@ -10,6 +10,8 @@ import {
 } from "react-instantsearch-hooks-web";
 import CountUp from "react-countup";
 import Link from "next/link";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
+import Tooltip from "../components/Tooltip";
 
 const searchClient = algoliasearch(
   "JBN0Y9WSDJ",
@@ -17,7 +19,7 @@ const searchClient = algoliasearch(
 );
 
 const refinementListStyles = {
-  list: "list-none p-1",
+  list: "list-none p-1 text-gray-700",
   item: "flex items-center",
   selectedItem: "font-semibold",
   label: "truncate",
@@ -52,7 +54,7 @@ const Modal = (hit) => {
     <>
       <button
         onClick={() => setShowModal(true)}
-        className="disabled group my-4 inline-flex items-center justify-center rounded-full bg-white px-4 text-sm text-slate-900 ring-1 hover:bg-blue-50 focus:outline-none focus-visible:outline-white active:bg-blue-200 active:text-slate-600"
+        className="disabled group mt-4 inline-flex items-center justify-center rounded-full bg-white px-4 text-sm text-slate-900 ring-1 hover:bg-blue-50 focus:outline-none focus-visible:outline-white active:bg-blue-200 active:text-slate-600"
         type="button"
       >
         Read More
@@ -96,7 +98,7 @@ const Modal = (hit) => {
 
 function Hit({ hit }) {
   return (
-    <div className="relative mb-4 flex items-start overflow-hidden rounded border-2 border-stone-200 p-8 shadow-lg">
+    <div className="relative mb-4 flex items-start overflow-hidden rounded border-2 border-stone-200 px-8 py-5 shadow-lg">
       <div className="flex h-5 items-center">
         <input
           id={hit.case_id}
@@ -131,15 +133,38 @@ function Hit({ hit }) {
             </span>
           </div>
         </label>
+        <div>
+          {hit.sector && (
+            <span className="mr-1 inline-block rounded bg-indigo-200 py-0 px-2 text-[0.6rem] font-semibold uppercase text-indigo-600 last:mr-0">
+              {hit.sector}
+            </span>
+          )}
+          {hit.industry && (
+            <span className="mr-1 inline-block rounded bg-indigo-200 py-0 px-2 text-[0.6rem] font-semibold uppercase text-indigo-600 last:mr-0">
+              {hit.industry}
+            </span>
+          )}
+          {(hit.industry || hit.sector) && (
+            <Tooltip text="Ask us about 'Zero-Shot Classification'.">
+              {/* <InformationCircleIcon className="inline-block h-5 w-5 text-gray-900" /> */}
+              <div className=" inline-block rounded-full border-y-red-600 p-1">
+                <img
+                  src="/favicon.ico"
+                  className="grayscale-100 inline-block h-6 w-6 grayscale filter hover:grayscale-0"
+                />
+              </div>
+            </Tooltip>
+          )}
+        </div>
         <div className="grid grid-cols-12">
           <div className="col-span-9">
-            <div className="p-2">
+            <div className="p-2 pl-0">
               <div
-                className="p-2"
+                className="p-2 pl-0 text-gray-600"
                 style={{
                   fontSize: 14,
                   lineHeight: 1,
-                  maxHeight: 100,
+                  maxHeight: 93,
                   overflow: "hidden",
                 }}
               >
@@ -188,9 +213,9 @@ export default function Register() {
                 <h3 className="mt-3 text-2xl font-semibold">Filters</h3>
               </div>
 
-              <div className="col-span-1">
-                <ClearRefinements className="" />
-              </div>
+              {/* <div className="col-span-1">
+                <ClearRefinements className="rounded-md border-blue-800 text-sm outline-1" />
+              </div> */}
             </div>
             <h3 className="mt-3 text-lg font-semibold">Country</h3>
 

@@ -54,11 +54,12 @@ export default function DataScience() {
             <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
               Vision for the future
             </p>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-              Empower your data team with the tools they need to build and
-              deploy models faster. From data exploration to enrichment and
-              deployment, utilize our experience by considering these
-              recommendations.
+            <p className="mt-6 text-xl leading-8 text-gray-600">
+              Unleash the power of data science -{" "}
+              <b>
+                conquer challenges, leverage your strengths, and amplify your
+                capabilities.
+              </b>
             </p>
           </div>
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
@@ -96,7 +97,11 @@ export default function DataScience() {
                   AI Data Enrichment
                 </p>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
-                  Our experience is real, but our intelligence is artificial.
+                  Our expertise is real, but our{" "}
+                  <i>
+                    <b>intelligence is artificial</b>
+                  </i>
+                  .
                 </p>
                 <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
                   {features.map((feature) => (
