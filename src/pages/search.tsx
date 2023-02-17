@@ -7,8 +7,6 @@ import {
   InstantSearch,
   RefinementList,
   SearchBox,
-  RangeInput,
-  Snippet,
 } from "react-instantsearch-hooks-web";
 import CountUp from "react-countup";
 import Link from "next/link";
