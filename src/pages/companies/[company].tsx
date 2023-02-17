@@ -40,7 +40,7 @@ export default function Company(props) {
     console.log("data", data);
     console.log("data.result", data.result);
 
-    let rawResult = data.result;
+    const rawResult = data.result;
 
     console.log(rawResult);
 
@@ -97,6 +97,7 @@ export default function Company(props) {
           <a
             href={website}
             target="_blank"
+            rel="noreferrer"
             className={
               !website
                 ? ""
