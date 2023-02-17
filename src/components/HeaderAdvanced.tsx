@@ -203,7 +203,7 @@ export default function HeaderAdvanced() {
               Marketing
             </Link>
             <Link
-              href="/search"
+              href="/datascience"
               className="text-base font-medium text-gray-500 hover:text-gray-900 active:text-blue-800"
             >
               Data Science
