@@ -206,8 +206,8 @@ export default function Register() {
           placeholder="Company name or stock symbol"
         />
         {/* Refinement list: state, counties, statewideFlag, constructionType, year, standard */}
-        <div className="mx-auto grid max-w-4xl grid-cols-7 gap-10">
-          <div className="col-span-2">
+        <div className="mx-auto grid max-w-2xl grid-cols-7 gap-10">
+          <div className="col-span-2" style={{ display: "none" }}>
             <div className="mt-10 grid grid-cols-2 gap-2">
               <div className="col-span-1">
                 <h3 className="mt-3 text-2xl font-semibold">Filters</h3>
@@ -236,7 +236,7 @@ export default function Register() {
               attribute="industry"
             />
           </div>
-          <div className="col-span-5">
+          <div className="col-span-7">
             {/* tailwind export to csv button */}
             <div className="flex w-full justify-end">
               <button className="disabled group mb-4 inline-flex items-center justify-center rounded-full bg-white py-2 px-4 text-sm text-slate-900 ring-1 hover:bg-blue-50 focus:outline-none focus-visible:outline-white active:bg-blue-200 active:text-slate-600">

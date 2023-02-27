@@ -108,9 +108,8 @@ export default function HeaderAdvanced() {
               <span className="sr-only">Your Company</span>
               <img
                 className="h-8 w-auto sm:h-10"
-                src="/harmony_logo.png"
+                src="/ttech_logo_transparent.png"
                 alt=""
-                style={{ filter: "drop-shadow(2px 4px 6px gray)" }}
               />
             </Link>
           </div>
