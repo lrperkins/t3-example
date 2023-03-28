@@ -1,10 +1,34 @@
 import React, { useState } from 'react'
 import { TailSpin } from 'react-loader-spinner'
+import Interview from '../components/Interview'
+import Prompt from '../components/Prompt'
+import Tabs from '../components/Tabs'
 
 interface AnswerProps {
   question: string
   answer: string
 }
+
+const selects = [
+  {
+    label: 'What Position',
+    value: 'position',
+    options: [
+      { label: 'Frontend', value: 'frontend' },
+      { label: 'Backend', value: 'backend' },
+      { label: 'Fullstack', value: 'fullstack' },
+    ],
+  },
+  {
+    label: 'Experience level',
+    value: 'experience',
+    options: [
+      { label: 'Junior', value: 'junior' },
+      { label: 'Mid', value: 'mid' },
+      { label: 'Senior', value: 'senior' },
+    ],
+  },
+]
 
 export default function AssistiveIntel() {
   const tabs = ['Tech Question', 'Fix my code', 'Write my code', 'Explain my code', 'Interview']
@@ -12,6 +36,7 @@ export default function AssistiveIntel() {
   const [loading, setLoading] = useState(false)
   const [answer, setAnswer] = useState<AnswerProps[]>([])
   const [tab, setTab] = useState('Tech Question')
+  const [selectOptions, setSelectOptions] = useState<{ [key: string]: string }>({})
 
   const convertTabToTopic = (tab: string) => {
     switch (tab) {
@@ -44,6 +69,19 @@ export default function AssistiveIntel() {
     setQuestion('')
     setLoading(false)
   }
+  const interviewRequest = async () => {
+    setLoading(true)
+    const response = await fetch('/api/interview', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ position: selectOptions.position, experience: selectOptions.experience }),
+    })
+    const data = await response.json()
+    setAnswer([...answer, {question: question, answer: data.result}])
+  }
+
   return (
     <div className='flex items-center justify-center'>
       <div className='flex flex-col items-center w-3/5 gap-3'>
@@ -57,36 +95,22 @@ export default function AssistiveIntel() {
             </p>
           </div>
           <div>
-            <div className='flex justify-center flex-wrap gap-2'>
-              {
-                tabs.map((item, index) => (
-                  <button
-                    className={`
-                    ${tab === item ?
-                      'bg-indigo-600 text-white':
-                      'border border-2 border-slate-300 text-slate-300'
-                    } rounded py-2.5 px-5 mr-2`}
-                    key={index}
-                    onClick={() => setTab(item)}
-                  >
-                    {item}
-                  </button>
-                ))
-              }
-            </div>
+            <Tabs tabs={tabs} tab={tab} setTab={setTab} />
           </div>
-          <div>
-            <textarea
-              className='border border-2 border-slate-300 w-full rounded h-40 p-2.5'
-              placeholder='Ask a question'
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-            ></textarea>
-            <button
-              className='bg-indigo-600 rounded text-white py-2.5 w-20'
-              onClick={askQuestion}
-            >Ask</button>
-          </div>
+          {
+            tab === 'Interview' ?
+              <Interview
+                selects={selects}
+                selectOptions={selectOptions}
+                setSelectOptions={setSelectOptions}
+                onClick={interviewRequest}
+              /> :
+              <Prompt
+                question={question}
+                setQuestion={setQuestion}
+                onClick={askQuestion}
+              />
+          }
         </div>
         <div className='flex flex-col gap-3 w-full mb-5'>
           {loading && (
