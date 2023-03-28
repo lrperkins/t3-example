@@ -7,9 +7,28 @@ interface AnswerProps {
 }
 
 export default function AssistiveIntel() {
+  const tabs = ['Tech Question', 'Fix my code', 'Write my code', 'Explain my code', 'Interview']
   const [question, setQuestion] = useState('')
   const [loading, setLoading] = useState(false)
   const [answer, setAnswer] = useState<AnswerProps[]>([])
+  const [tab, setTab] = useState('Tech Question')
+
+  const convertTabToTopic = (tab: string) => {
+    switch (tab) {
+      case 'Tech Question':
+        return 'techQuestions'
+      case 'Fix my code':
+        return 'fixCode'
+      case 'Write my code':
+        return 'writeCode'
+      case 'Explain my code':
+        return 'explainCode'
+      case 'Interview':
+        return 'interview'
+      default:
+        return 'techQuestions'
+    }
+  }
 
   const askQuestion = async () => {
     setLoading(true)
@@ -18,14 +37,12 @@ export default function AssistiveIntel() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ prompt: question }),
+      body: JSON.stringify({ prompt: question, topic: convertTabToTopic(tab) }),
     })
     const data = await response.json()
     setAnswer([...answer, {question: question, answer: data.result}])
     setQuestion('')
     setLoading(false)
-    console.log('data', data)
-    console.log('data.result', data.result)
   }
   return (
     <div className='flex items-center justify-center'>
@@ -35,7 +52,28 @@ export default function AssistiveIntel() {
             <h1 className='mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center'>
               Assistive Intelligence
             </h1>
-            <p className='text-center text-gray-500'>Allow Assistive Intelligence to be your AI assistant.</p>
+            <p className='text-center text-gray-500'>
+              Allow Assistive Intelligence to be your AI assistant. Select a category and ask away.
+            </p>
+          </div>
+          <div>
+            <div className='flex justify-center flex-wrap gap-2'>
+              {
+                tabs.map((item, index) => (
+                  <button
+                    className={`
+                    ${tab === item ?
+                      'bg-indigo-600 text-white':
+                      'border border-2 border-slate-300 text-slate-300'
+                    } rounded py-2.5 px-5 mr-2`}
+                    key={index}
+                    onClick={() => setTab(item)}
+                  >
+                    {item}
+                  </button>
+                ))
+              }
+            </div>
           </div>
           <div>
             <textarea
