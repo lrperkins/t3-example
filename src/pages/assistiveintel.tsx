@@ -32,7 +32,7 @@ export default function AssistiveIntel() {
 
   const askQuestion = async () => {
     setLoading(true)
-    const response = await fetch('/api/openai', {
+    const response = await fetch('/api/chatgpt', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
