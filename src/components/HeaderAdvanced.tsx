@@ -194,7 +194,12 @@ export default function HeaderAdvanced() {
                 </>
               )}
             </Popover>
-
+            <Link
+              href="/assistiveintel"
+              className="text-base font-medium text-gray-500 hover:text-gray-900 active:text-blue-800"
+            >
+              Assistive Intel
+            </Link>
             <Link
               href="/opportunities"
               className="text-base font-medium text-gray-500 hover:text-gray-900 active:text-blue-800"
