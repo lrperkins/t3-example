@@ -6,15 +6,25 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
+
 export default async function (req, res) {
+  const {
+    prompt,
+    max_tokens = 250,
+    temperature = 0,
+    top_p = 1.0,
+    frequency_penalty = 0,
+    presence_penalty = 0.0,
+  } = req.body;
+
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: req.body.prompt + '\n\n###\n\n',
-    max_tokens: 250,
-    temperature: 0,
-    top_p: 1.0,
-    frequency_penalty: 0,
-    presence_penalty: 0.0,
+    prompt: prompt + '\n\n###\n\n',
+    max_tokens,
+    temperature,
+    top_p,
+    frequency_penalty,
+    presence_penalty,
   });
   res.status(200).json({ result: completion.data.choices[0].text });
 }
