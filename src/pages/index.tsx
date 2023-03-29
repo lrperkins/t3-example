@@ -26,7 +26,7 @@ const companies = [
 
 function OpenAIForm() {
   const [prompt, setPrompt] = useState(
-    "You are a business inight expert. Give a one paragraph description of COMPANY and their primary products and services in the style of Tim Ferriss."
+    "You are a business insight expert. Give a one paragraph description of COMPANY and their primary products and services in the style of Tim Ferriss."
   );
   const [maxTokens, setMaxTokens] = useState(350);
   const [temperature, setTemperature] = useState(0.7);
@@ -313,12 +313,12 @@ function OpenAIForm() {
                       <li className="my-2">
                         You are a business expert, specializing in ESG
                         compliance, providing insight to your clients. Give a
-                        one paragraph description of COMPANY and their
-                        commitments to ESG.
+                        one paragraph description of COMPANY and its commitments
+                        to ESG in the style of Wolfe Blitzer.
                       </li>
                       <li className="my-2">
-                        You are a business inight expert. Give a one paragraph
-                        description of COMPANY and their primary products and
+                        You are a business insight expert. Give a one paragraph
+                        description of COMPANY and its primary products and
                         services.{" "}
                       </li>
                     </ul>
