@@ -26,11 +26,11 @@ const companies = [
 
 function OpenAIForm() {
   const [prompt, setPrompt] = useState(
-    "You are a business inight expert. Give a one paragraph description of COMPANY and their primary products and services."
+    "You are a business inight expert. Give a one paragraph description of COMPANY and their primary products and services in the style of Tim Ferriss."
   );
-  const [maxTokens, setMaxTokens] = useState(250);
-  const [temperature, setTemperature] = useState(0);
-  const [topP, setTopP] = useState(1.0);
+  const [maxTokens, setMaxTokens] = useState(350);
+  const [temperature, setTemperature] = useState(0.7);
+  const [topP, setTopP] = useState(0.5);
   const [frequencyPenalty, setFrequencyPenalty] = useState(0);
   const [presencePenalty, setPresencePenalty] = useState(0.0);
   const [companyResults, setCompanyResults] = useState([]);
@@ -79,6 +79,7 @@ function OpenAIForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setCompanyResults([]);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -135,7 +136,7 @@ function OpenAIForm() {
                 id="prompt"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                rows={4}
+                rows={6}
                 cols={50}
                 className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
               />
@@ -219,7 +220,7 @@ function OpenAIForm() {
               type="submit"
               className="focus:shadow-outline w-full rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
             >
-              Submit
+              Generate
             </button>
             <div className="mb-4">
               <h3 className="mb-2 mt-8 text-sm font-bold text-gray-700">
