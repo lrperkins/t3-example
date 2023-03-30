@@ -25,12 +25,13 @@ const constructPrompt = (topic: string, prompt='', language = 'javascript', leve
   }
 }
 export default async function chatGpt(req, res) {
-  const prompt = constructPrompt(topics.WRITE_CODE, req.body.prompt);
+  const { prompt, language, level, position } = req.body;
+  const content = constructPrompt(topics.WRITE_CODE, prompt, language, level, position);
   const completion = await openai.createChatCompletion({
     messages: [
         {
             role: "user",
-            content: prompt + '\n\n###\n\n',
+            content: content + '\n\n###\n\n',
         }
     ],
     temperature: 0.7,
