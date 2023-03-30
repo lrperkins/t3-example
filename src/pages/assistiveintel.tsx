@@ -37,7 +37,7 @@ export default function AssistiveIntel() {
   const [loading, setLoading] = useState(false)
   const [answer, setAnswer] = useState<AnswerProps[]>([])
   const [tab, setTab] = useState('Tech Question')
-  const [selectOptions, setSelectOptions] = useState<{ [key: string]: string }[]>([])
+  const [selectOptions, setSelectOptions] = useState<{ [key: string]: string }[]>([{position: 'frontend'}, {experience: 'junior'}])
 
   const convertTabToTopic = (tab: string) => {
     switch (tab) {
@@ -70,6 +70,15 @@ export default function AssistiveIntel() {
     setQuestion('')
     setLoading(false)
   }
+
+  const clearResponse = async () => {
+    setAnswer([])
+  }
+
+  const changeTopic = (item: string) => {
+    setTab(item);
+    setAnswer([]);
+  }
   const interviewRequest = async () => {
     setLoading(true)
     console.log('options', selectOptions)
@@ -98,7 +107,7 @@ export default function AssistiveIntel() {
             </p>
           </div>
           <div>
-            <Tabs tabs={tabs} tab={tab} setTab={setTab} />
+            <Tabs tabs={tabs} tab={tab} setTab={changeTopic} />
           </div>
           {
             tab === 'Interview' ?
@@ -112,6 +121,7 @@ export default function AssistiveIntel() {
                 question={question}
                 setQuestion={setQuestion}
                 onClick={askQuestion}
+                clear={clearResponse}
               />
           }
         </div>

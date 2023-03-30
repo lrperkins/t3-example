@@ -4,9 +4,10 @@ interface PromptProps {
   question: string
   setQuestion: (question: string) => void
   onClick: () => void
+  clear?: () => void
 }
 
-export default function Prompt({ question, setQuestion, onClick }: PromptProps) {
+export default function Prompt({ question, setQuestion, onClick, clear }: PromptProps) {
   return (
     <div>
       <textarea
@@ -19,6 +20,11 @@ export default function Prompt({ question, setQuestion, onClick }: PromptProps) 
         className='bg-indigo-600 rounded text-white py-2.5 w-20'
         onClick={onClick}
       >Ask</button>
+
+      <button
+        className='bg-red-600 rounded text-white py-2.5 w-20 gap-2 mx-3'
+        onClick={clear}
+      >Clear</button>
     </div>
   )
 }
