@@ -3,6 +3,7 @@ import { TailSpin } from 'react-loader-spinner'
 import Interview from '../components/Interview'
 import Prompt from '../components/Prompt'
 import Tabs from '../components/Tabs'
+import { topics } from '../constants/topic'
 
 interface AnswerProps {
   question: string
@@ -36,22 +37,22 @@ export default function AssistiveIntel() {
   const [loading, setLoading] = useState(false)
   const [answer, setAnswer] = useState<AnswerProps[]>([])
   const [tab, setTab] = useState('Tech Question')
-  const [selectOptions, setSelectOptions] = useState<{ [key: string]: string }>({})
+  const [selectOptions, setSelectOptions] = useState<{ [key: string]: string }[]>([])
 
   const convertTabToTopic = (tab: string) => {
     switch (tab) {
       case 'Tech Question':
-        return 'techQuestions'
+        return topics.TECH_QUESTION
       case 'Fix my code':
-        return 'fixCode'
+        return topics.FIX_CODE
       case 'Write my code':
-        return 'writeCode'
+        return topics.WRITE_CODE
       case 'Explain my code':
-        return 'explainCode'
+        return topics.EXPLAIN_CODE
       case 'Interview':
-        return 'interview'
+        return topics.INTERVIEW_QUESTION
       default:
-        return 'techQuestions'
+        return topics.TECH_QUESTION
     }
   }
 
@@ -71,15 +72,17 @@ export default function AssistiveIntel() {
   }
   const interviewRequest = async () => {
     setLoading(true)
-    const response = await fetch('/api/interview', {
+    console.log('options', selectOptions)
+    const response = await fetch('/api/chatgpt', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ position: selectOptions.position, experience: selectOptions.experience }),
+      body: JSON.stringify({topic: convertTabToTopic(tab), position: selectOptions[0].position, level: selectOptions[1].experience }),
     })
     const data = await response.json()
     setAnswer([...answer, {question: question, answer: data.result}])
+    setLoading(false)
   }
 
   return (

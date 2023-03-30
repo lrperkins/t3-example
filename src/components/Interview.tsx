@@ -25,7 +25,7 @@ export default function Interview({ selects, selectOptions, setSelectOptions, on
             key={i}
             placeholder={item.label}
             value={selectOptions[item.value]}
-            onChange={(e) => setSelectOptions({ ...selectOptions, [item.value]: e.target.value })}
+            onChange={(e) => setSelectOptions([...selectOptions, {[item.value]: e.target.value}])}
           >
             {
               item.options.map((option, index) => (

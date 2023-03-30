@@ -15,7 +15,7 @@ const constructPrompt = (topic: string, prompt='', language = 'javascript', leve
     case topics.WRITE_CODE:
       return `Write Some Code that does the following: ${prompt}`;
     case topics.INTERVIEW_QUESTION:
-      return `Give me a list of interview questions for a ${level} ${position}.`
+      return `Give me a list of interview questions for a ${level} ${position} developer.`
     case topics.CODING_QUESTION:
       return `Give me a list of ${level} coding questions in ${language}`
     case topics.CODING_QUESTION_ANSWER:
@@ -25,8 +25,9 @@ const constructPrompt = (topic: string, prompt='', language = 'javascript', leve
   }
 }
 export default async function chatGpt(req, res) {
-  const { prompt, language, level, position } = req.body;
-  const content = constructPrompt(topics.WRITE_CODE, prompt, language, level, position);
+  const { prompt, language, level, position, topic } = req.body;
+  const content = constructPrompt(topic, prompt, language, level, position);
+  console.log("REQ BODY", content)
   const completion = await openai.createChatCompletion({
     messages: [
         {
