@@ -5,6 +5,7 @@ interface PromptProps {
   setQuestion: (question: string) => void
   onClick: () => void,
   category: string
+  clear: () => void,
 }
 
 const placeholderText = (category: string) => {
@@ -19,7 +20,7 @@ const placeholderText = (category: string) => {
   }
 }
 
-export default function Prompt({ question, setQuestion, onClick, category }: PromptProps) {
+export default function Prompt({ question, setQuestion, onClick, category, clear }: PromptProps) {
   const placeholder = placeholderText(category)
   return (
     <div>
@@ -33,6 +34,11 @@ export default function Prompt({ question, setQuestion, onClick, category }: Pro
         className='bg-indigo-600 rounded text-white py-2.5 w-20'
         onClick={onClick}
       >Submit</button>
+
+      <button
+        className='bg-red-600 rounded text-white py-2.5 w-20 gap-2 mx-3'
+        onClick={clear}
+      >Clear</button>
     </div>
   )
 }
