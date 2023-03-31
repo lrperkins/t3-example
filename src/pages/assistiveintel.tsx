@@ -129,7 +129,7 @@ export default function AssistiveIntel() {
               <TailSpin color='#4f46e5' height={50} width={50} />
             </div>
           )}
-          <Answer answers={answer} />
+          <Answer answers={answer} category={tab} />
         </div>
       </div>
     </div>
