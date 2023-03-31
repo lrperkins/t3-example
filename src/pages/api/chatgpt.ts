@@ -27,7 +27,6 @@ const constructPrompt = (topic: string, prompt='', language = 'javascript', leve
 export default async function chatGpt(req, res) {
   const { prompt, language, level, position, topic } = req.body;
   const content = constructPrompt(topic, prompt, language, level, position);
-  console.log("REQ BODY", content)
   const completion = await openai.createChatCompletion({
     messages: [
         {

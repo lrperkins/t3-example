@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { TailSpin } from 'react-loader-spinner'
+import Answer from '../components/Answer'
 import Interview from '../components/Interview'
 import Prompt from '../components/Prompt'
 import Tabs from '../components/Tabs'
@@ -18,6 +19,12 @@ const selects = [
       { label: 'Frontend', value: 'frontend' },
       { label: 'Backend', value: 'backend' },
       { label: 'Fullstack', value: 'fullstack' },
+      { label: 'React Dev', value: 'react developer' },
+      { label: 'Vuejs', value: 'vue.js developer' },
+      { label: 'Angular', value: 'angular developer' },
+      { label: 'Nodejs', value: 'node.js developer' },
+      { label: 'Python', value: 'python developer' },
+      { label: 'Java', value: 'java developer' },
     ],
   },
   {
@@ -78,7 +85,7 @@ export default function AssistiveIntel() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({topic: convertTabToTopic(tab), position: selectOptions[0].position, level: selectOptions[1].experience }),
+      body: JSON.stringify({topic: convertTabToTopic(tab), position: selectOptions[0]?.position, level: selectOptions[1]?.experience }),
     })
     const data = await response.json()
     setAnswer([...answer, {question: question, answer: data.result}])
@@ -109,6 +116,7 @@ export default function AssistiveIntel() {
                 onClick={interviewRequest}
               /> :
               <Prompt
+                category={tab}
                 question={question}
                 setQuestion={setQuestion}
                 onClick={askQuestion}
@@ -121,18 +129,7 @@ export default function AssistiveIntel() {
               <TailSpin color='#4f46e5' height={50} width={50} />
             </div>
           )}
-          {answer.map((item, index) => (
-            <div key={index} className="flex flex-col gap-3">
-              <div className='w-full min-h-[160px] border border-2 border-slate-200 rounded p-2.5 shadow-xl'>
-                <h4 className='text-center font-bold'>Question</h4>
-                <p className='text-center'>{item.question} ?</p>
-              </div>
-              <div className='w-full min-h-[160px] bg-indigo-100 rounded p-2.5 shadow-xl'>
-                <h4 className='text-center font-bold'>Answer</h4>
-                <p className='text-center'>{item.answer}</p>
-              </div>
-            </div>
-          )).reverse()}
+          <Answer answers={answer} />
         </div>
       </div>
     </div>

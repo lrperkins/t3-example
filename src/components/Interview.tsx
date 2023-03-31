@@ -17,6 +17,7 @@ interface InterviewProps {
 export default function Interview({ selects, selectOptions, setSelectOptions, onClick }: InterviewProps) {
   return (
     <div className='flex justify-between flex-col gap-3'>
+      <p className='text-center text-gray-500'>Select position and experience level for Assistive Intel to interview you</p>
       <div className='flex justify-between'>
       {
         selects.map((item, i) => (
@@ -39,7 +40,7 @@ export default function Interview({ selects, selectOptions, setSelectOptions, on
       <button
         className='bg-indigo-600 rounded text-white py-2.5 w-20'
         onClick={onClick}
-      >Ask</button>
+      >Submit</button>
     </div>
   )
 }

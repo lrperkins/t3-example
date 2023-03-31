@@ -3,22 +3,36 @@ import React from 'react'
 interface PromptProps {
   question: string
   setQuestion: (question: string) => void
-  onClick: () => void
+  onClick: () => void,
+  category: string
 }
 
-export default function Prompt({ question, setQuestion, onClick }: PromptProps) {
+const placeholderText = (category: string) => {
+  if (category === 'Tech Question') {
+    return 'Ask Assistive Intel a tech question'
+  } else if (category === 'Fix my code') {
+    return 'Submit broken code to Assistive Intel'
+  } else if (category === 'Write my code') {
+    return 'Instruct Assistive Intel to write code'
+  } else if (category === 'Explain my code') {
+    return 'Submit code to Assistive Intel to explain'
+  }
+}
+
+export default function Prompt({ question, setQuestion, onClick, category }: PromptProps) {
+  const placeholder = placeholderText(category)
   return (
     <div>
       <textarea
         className='border border-2 border-slate-300 w-full rounded h-40 p-2.5'
-        placeholder='Ask a question'
+        placeholder={placeholder}
         value={question}
         onChange={(e) => setQuestion(e.target.value)}
       ></textarea>
       <button
         className='bg-indigo-600 rounded text-white py-2.5 w-20'
         onClick={onClick}
-      >Ask</button>
+      >Submit</button>
     </div>
   )
 }
