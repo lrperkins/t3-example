@@ -44,6 +44,7 @@ export default function AssistiveIntel() {
   const [loading, setLoading] = useState(false)
   const [answer, setAnswer] = useState<AnswerProps[]>([])
   const [tab, setTab] = useState('Tech Question')
+  const [history, setHistory] = useState<string[]>([])
   const [selectOptions, setSelectOptions] = useState<{ [key: string]: string }[]>([{position: 'frontend'}, {experience: 'junior'}])
 
   const convertTabToTopic = (tab: string) => {
@@ -70,21 +71,24 @@ export default function AssistiveIntel() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ prompt: question, topic: convertTabToTopic(tab) }),
+      body: JSON.stringify({ prompt: question, topic: convertTabToTopic(tab), history }),
     })
     const data = await response.json()
     setAnswer([...answer, {question: question, answer: data.result}])
+    setHistory([...history, question, data.result])
     setQuestion('')
     setLoading(false)
   }
 
   const clearResponse = async () => {
     setAnswer([])
+    setHistory([])
   }
 
   const changeTopic = (item: string) => {
     setTab(item);
     setAnswer([]);
+    setHistory([]);
   }
   const interviewRequest = async () => {
     setLoading(true)
