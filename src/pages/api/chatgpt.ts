@@ -1,4 +1,4 @@
-import { Configuration, OpenAIApi } from "openai";
+import { Configuration, OpenAIApi, ChatCompletionRequestMessage } from "openai";
 import {topics} from '../../constants/topic';
 
 const configuration = new Configuration({
@@ -24,16 +24,26 @@ const constructPrompt = (topic: string, prompt='', language = 'javascript', leve
       return prompt;
   }
 }
+
 export default async function chatGpt(req, res) {
-  const { prompt, language, level, position, topic } = req.body;
+  const { prompt, language, level, position, topic, history=[] } = req.body;
   const content = constructPrompt(topic, prompt, language, level, position);
+  const previousMessages = history.reverse();
+  const messageLog: ChatCompletionRequestMessage[] = [{ role: 'system', content: 'You are a friendly chatbot.' }];
+  previousMessages.forEach((message: string) => {
+    messageLog.push({
+      role: 'user',
+      content: message,
+    });
+  });
+
+  messageLog.push({
+    role: "user",
+    content: content,
+  });
+
   const completion = await openai.createChatCompletion({
-    messages: [
-        {
-            role: "user",
-            content: content + '\n\n###\n\n',
-        }
-    ],
+    messages: messageLog,
     temperature: 0.7,
     max_tokens: 256,
     top_p: 1,
