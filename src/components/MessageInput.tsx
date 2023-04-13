@@ -26,6 +26,7 @@ const MessageInput: React.FC<MessageInputProps> = ({ onSend }) => {
         onChange={(e) => setInput(e.target.value)}
         className="w-full rounded-lg border  px-4 py-2 focus:border-blue-300 focus:outline-none focus:ring"
         placeholder="Type your message..."
+        maxLength={2000}
       />
       <button
         type="submit"
