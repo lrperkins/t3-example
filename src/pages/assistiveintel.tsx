@@ -24,7 +24,7 @@ interface IMessage {
   content: string;
 }
 
-const App: React.FC = () => {
+const AssistiveIntel: React.FC = () => {
   const [messages, setMessages] = useState<Record<string, IMessage[]>>(
     Object.keys(systemPrompts).reduce(
       (acc, prompt) => ({ ...acc, [prompt]: [] }),
@@ -129,4 +129,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default AssistiveIntel;
