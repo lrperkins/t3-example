@@ -1,46 +1,39 @@
-import { Configuration, OpenAIApi } from "openai";
-import {topics} from '../../constants/topic';
-
+// Create a new OpenAI API client
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
-const constructPrompt = (topic: string, prompt='', language = 'javascript', level = 'junior', position = 'full-stack engineer') => {
-  switch(topic) {
-    case topics.EXPLAIN_CODE:
-      return `Explain this block of code: ${prompt}`;
-    case topics.FIX_CODE:
-      return `Is there anything wrong this block of code: ${prompt}`;
-    case topics.WRITE_CODE:
-      return `Write Some Code that does the following: ${prompt}`;
-    case topics.INTERVIEW_QUESTION:
-      return `Give me a list of interview questions for a ${level} ${position} developer.`
-    case topics.CODING_QUESTION:
-      return `Give me a list of ${level} coding questions in ${language}`
-    case topics.CODING_QUESTION_ANSWER:
-      return `Give me the answers to the following questions: ${prompt}`
-    default:
-      return prompt;
-  }
+// Retrieve the user messages from the request body
+const messages = req.body;
+
+if (!messages || !Array.isArray(messages)) {
+  res.status(400).json({ error: "Invalid request: messages should be an array" });
+  return;
 }
-export default async function chatGpt(req, res) {
-  const { prompt, language, level, position, topic } = req.body;
-  const content = constructPrompt(topic, prompt, language, level, position);
+
+// Format the user messages
+const openaiMessages = messages.map((message) => ({
+  role: message.role,
+  content: message.content,
+}));
+
+// Call the OpenAI API to generate a response
+try {
   const completion = await openai.createChatCompletion({
-    messages: [
-        {
-            role: "user",
-            content: content + '\n\n###\n\n',
-        }
-    ],
+    messages: openaiMessages,
     temperature: 0.7,
-    max_tokens: 256,
+    max_tokens: 1500,
     top_p: 1,
     frequency_penalty: 0,
     presence_penalty: 0,
     model: "gpt-3.5-turbo",
-});
+  });
+
+  // Send the response back to the client
   const response = completion?.data?.choices[0]?.message?.content;
-  res.status(200).json({ result: response });
+  res.status(200).json({ role: "assistant", content: response });
+} catch (error) {
+  console.error(error);
+  res.status(500).json({ error: "An error occurred while processing the request" });
 }
