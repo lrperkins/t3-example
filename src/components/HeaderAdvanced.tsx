@@ -200,12 +200,12 @@ export default function HeaderAdvanced() {
             >
               Assistive Intel
             </Link>
-            <Link
+            {/* <Link
               href="/opportunities"
               className="text-base font-medium text-gray-500 hover:text-gray-900 active:text-blue-800"
             >
               Marketing
-            </Link>
+            </Link> */}
             <Link
               href="/datascience"
               className="text-base font-medium text-gray-500 hover:text-gray-900 active:text-blue-800"

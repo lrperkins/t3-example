@@ -5,6 +5,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 import { trpc } from "../utils/trpc";
 import AssistiveIntel from "./assistiveintel";
+import HeaderAdvanced from "../components/HeaderAdvanced";
 
 const Home: NextPage = () => {
   return (
@@ -17,6 +18,7 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <HeaderAdvanced />
       <AssistiveIntel />
     </>
   );
