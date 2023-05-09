@@ -10,7 +10,7 @@ export default async function (req, res) {
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
     prompt: req.body.prompt + '\n\n###\n\n',
-    max_tokens: 250,
+    max_tokens: 3000,
     temperature: 0,
     top_p: 1.0,
     frequency_penalty: 0,
