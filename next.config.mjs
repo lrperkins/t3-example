@@ -20,5 +20,15 @@ const config = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
+
+  webpack: (config) => {
+    config.experiments = {
+      asyncWebAssembly: true,
+      syncWebAssembly: true,
+      topLevelAwait: true,
+      layers: true,
+    };
+    return config;
+  },
 };
 export default config;

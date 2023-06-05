@@ -37,7 +37,17 @@ interface MessageProps {
 }
 
 const Message: React.FC<MessageProps> = ({ role, content }) => {
-  const parts = content.split(/(```[\s\S]+?```)/g);
+  // const parts = content.split(/(```[\s\S]+?```)/g);
+  // try catch for parts
+  function splitContent(content: string) {
+    try {
+      const parts = content.split(/(```[\s\S]+?```)/g);
+      return parts;
+    } catch (error) {
+      console.error(error);
+      return [content];
+    }
+  }
 
   return (
     <div
@@ -50,7 +60,7 @@ const Message: React.FC<MessageProps> = ({ role, content }) => {
             : "mr-10 rounded-bl-none bg-gray-200 text-black"
         }`}
       >
-        {parts.map((part, index) => {
+        {splitContent(content).map((part, index) => {
           if (part.startsWith("```")) {
             const codeContent = part.slice(3, part.length - 3);
             return <CodeBlock key={index} code={codeContent} />;

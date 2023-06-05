@@ -24,13 +24,12 @@ const MessageInput: React.FC<MessageInputProps> = ({
       onSubmit={handleSubmit}
       className="mt-3 flex w-full items-center gap-3 rounded-lg "
     >
-      <input
+      <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
         className="w-full rounded-lg border px-4 py-2 focus:border-blue-300 focus:outline-none focus:ring"
         placeholder="Type your message..."
         maxLength={5000}
-        defaultValue={defaultText}
       />
 
       <button
