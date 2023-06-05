@@ -131,14 +131,12 @@ const Home: NextPage = () => {
               </div>
               <div className={styles.menu_item}>
                 <p>
-                  <span className={styles.menu_service}>Deep Fakes</span>{" "}
-                  <span className={styles.menu_food}>
-                    (AI Trickster Truffles)
-                  </span>{" "}
-                  A sweetly deceptive treat that uses deep fakes to generate
-                  targeted disruption and guaranteed conversation starters.
-                  Ideal for brands looking for a fun, innovative way to engage
-                  their audience.
+                  <span className={styles.menu_service}>AI Imagery</span>{" "}
+                  <span className={styles.menu_food}>(Trickster Truffles)</span>{" "}
+                  A sweetly deceptive treat that uses AI image and video
+                  generation as guaranteed conversation starters with your high
+                  value clients. Ideal for brands looking for a fun, innovative
+                  way to engage a niche audience.
                 </p>
               </div>
               <div className={styles.menu_item}>
