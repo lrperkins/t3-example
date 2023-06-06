@@ -15,12 +15,11 @@ const Home: NextPage = () => {
       </Head>
       <div className="fixed bottom-0 left-0 right-0 top-0 bg-[#b3906d]">
         <Image
-          className="pointer-events-none object-cover object-center"
+          className="pointer-events-none"
           src={backgroundImage}
           alt=""
           loading="eager"
           fill
-          placeholder="blur"
         />
       </div>
       <div className="pb-50 relative px-3 pb-40 pt-20 md:px-10">
