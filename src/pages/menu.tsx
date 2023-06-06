@@ -20,6 +20,7 @@ const Home: NextPage = () => {
           alt=""
           loading="eager"
           fill
+          placeholder="blur"
         />
       </div>
       <div className="pb-50 relative px-3 pb-40 pt-20 md:px-10">
