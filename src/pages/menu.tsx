@@ -106,13 +106,15 @@ const Home: NextPage = () => {
             </div>
             <div className={styles.menu_item}>
               <p>
-                <span className={styles.menu_service}>Image Recognition</span>{" "}
-                <span className={styles.menu_food}>
-                  (Image Recognition Risotto)
+                <span className={styles.menu_service}>
+                  PDF & Image Extraction
                 </span>{" "}
-                A delicious dish prepared with convolutional neural networks,
-                enabling your systems to identify and classify images with
-                stunning accuracy.
+                <span className={styles.menu_food}>
+                  (Scan-and-Serve Skewers)
+                </span>{" "}
+                Succulent skewers that skillfully slice, sort, and serve your
+                scattered and sizable visual sources, such as images and PDFs,
+                into a splendidly structured symphony of streamlined snippets.
               </p>
             </div>
 
